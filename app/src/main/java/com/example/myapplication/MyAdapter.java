@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +24,27 @@ public class MyAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
+        View viewHolder;
         //convertView = R.layout.myrow
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.myrow, parent, false);
+        if (convertView ==null) {
+            viewHolder = LayoutInflater.from(getContext()).inflate(R.layout.myrow, parent, false);
+        }
+        else {
+            viewHolder = convertView;
+        }
 
-        TextView tvName     = convertView.findViewById(R.id.tvName);
-        TextView tvDate     = convertView.findViewById(R.id.tvDate);
-        TextView tvDesc     = convertView.findViewById(R.id.tvDesc);
-        TextView tvStatus   = convertView.findViewById(R.id.tvStatus);
-        ImageView iv        = convertView.findViewById(R.id.iv);
+        TextView tvName     = viewHolder.findViewById(R.id.tvName);
+        TextView tvDate     = viewHolder.findViewById(R.id.tvDate);
+        TextView tvDesc     = viewHolder.findViewById(R.id.tvDesc);
+        TextView tvStatus   = viewHolder.findViewById(R.id.tvStatus);
+        ImageView iv        = viewHolder.findViewById(R.id.iv);
+
+        viewHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Maksim","I clicked on row " + position);
+            }
+        });
 
         String date = getItem(position).getDate().toString().substring(0,19);
 
