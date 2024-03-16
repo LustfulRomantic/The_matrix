@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,20 @@ public class AlgorithemActivity extends AppCompatActivity {
                 conf_dialog.show();
             }
         });
+
+        Button appBtn = (Button) findViewById(R.id.appbtn);
+        appBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Maksim","Apply button clicked");
+            }
+        });
+
+        //Solve the puzzle
+        /*
+         * Maksim - do your magic here
+         */
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
