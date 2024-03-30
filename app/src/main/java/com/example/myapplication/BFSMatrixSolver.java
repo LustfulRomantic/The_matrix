@@ -3,6 +3,7 @@ package com.example.myapplication;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BFSMatrixSolver implements MatrixSolver {
@@ -35,7 +36,7 @@ public class BFSMatrixSolver implements MatrixSolver {
             if (currentCell.getIndex() == endCell.getIndex()) {
                 return reconstructPath(startCell, endCell);
             }
-            for (Cell neighbor : maze.getPassableNeighbors(currentCell)) {
+            for (Cell neighbor : getPassableNeighbors(currentCell)) {
                 if (!visited[neighbor.getRow()][neighbor.getColumn()]) {
                     queue.add(neighbor);
                     visited[neighbor.getRow()][neighbor.getColumn()] = true;
@@ -57,5 +58,29 @@ public class BFSMatrixSolver implements MatrixSolver {
         path.add(0, startCell);
         return path;
     }
+    private List<Cell> getPassableNeighbors(Cell cell) {
+        List<Cell> neighbors = new ArrayList<>();
+        int row = cell.getRow();
+        int col = cell.getColumn();
 
+        // Check adjacent cells
+        if (isValidMove(row - 1, col)) { // Up
+            neighbors.add(maze.getCell(row - 1, col));
+        }
+        if (isValidMove(row + 1, col)) { // Down
+            neighbors.add(maze.getCell(row + 1, col));
+        }
+        if (isValidMove(row, col - 1)) { // Left
+            neighbors.add(maze.getCell(row, col - 1));
+        }
+        if (isValidMove(row, col + 1)) { // Right
+            neighbors.add(maze.getCell(row, col + 1));
+        }
+
+        return neighbors;
+    }
+    private boolean isValidMove(int row, int col) {
+        return row >= 0 && row < maze.getRows() && col >= 0 && col < maze.getCols()
+                && maze.isCellClear(row, col);
+    }
 }

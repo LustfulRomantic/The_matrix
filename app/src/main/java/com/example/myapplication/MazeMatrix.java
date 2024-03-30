@@ -37,31 +37,6 @@ public class MazeMatrix extends Matrix {
     public void addSolution(String algorithmName, ArrayList<Cell> solution) {
         solutions.put(algorithmName, solution);
     }
-    public List<Cell> getPassableNeighbors(Cell cell) {
-        List<Cell> neighbors = new ArrayList<>();
-        int row = cell.getRow();
-        int col = cell.getColumn();
 
-        // Check adjacent cells
-        if (isValidMove(row - 1, col)) { // Up
-            neighbors.add(getCell(row - 1, col));
-        }
-        if (isValidMove(row + 1, col)) { // Down
-            neighbors.add(getCell(row + 1, col));
-        }
-        if (isValidMove(row, col - 1)) { // Left
-            neighbors.add(getCell(row, col - 1));
-        }
-        if (isValidMove(row, col + 1)) { // Right
-            neighbors.add(getCell(row, col + 1));
-        }
 
-        return neighbors;
-    }
-    private boolean isValidMove(int row, int col) {
-        return row >= 0 && row < getRows() && col >= 0 && col < getCols()
-                && isCellClear(row, col);
-    }
-    //Implement specific maze-related functionalities in the MazeMatrix class, such as generating a maze grid with walls, and handling maze-specific operations.
-    //Override methods from the superclass as needed to customize their behavior for the maze context.
 }

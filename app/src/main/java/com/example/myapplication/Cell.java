@@ -27,7 +27,3 @@ public class Cell {
     public int getColumn(){return this.column;}
 
 }
-
-//Additional Properties in Cell Class:
-//Include properties in the Cell class to represent additional characteristics that might be relevant for a maze, such as whether the cell is a wall, a starting point, an endpoint, or a path cell.
-//Add methods in the Cell class to set and retrieve these properties, allowing for easy identification and manipulation of cell types.

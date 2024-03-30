@@ -34,11 +34,11 @@ public class Matrix {
             matrix.add(row);
         }
     }
-    public int getRows(){return this.rows;}
-    public int getCols(){return this.cols;}
     public boolean isCellClear (int x, int y) {
         return getCellValue(x,y) == 0;
     }
+    public int getRows(){return this.rows;}
+    public int getCols(){return this.cols;}
     private Integer getCellValue (int x, int y) {
         return matrix.get(x).get(y).getVal();
     }
