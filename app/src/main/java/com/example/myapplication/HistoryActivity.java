@@ -17,7 +17,7 @@ import java.util.Date;
 public class HistoryActivity extends AppCompatActivity {
 
     private ListView lv;
-    ArrayList<Item> arrayofItem = new ArrayList<>();
+    ArrayList<Item> arrayOfItem = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         //lv <= arrayOfStrings
 
-        MyAdapter adp = new MyAdapter(this, android.R.layout.simple_list_item_1, arrayofItem);
+        MyAdapter adp = new MyAdapter(this, android.R.layout.simple_list_item_1, arrayOfItem);
         lv.setAdapter(adp);
 
     }
@@ -69,7 +69,7 @@ public class HistoryActivity extends AppCompatActivity {
             Date date = Calendar.getInstance().getTime();
             Item item = new Item("Itamar","Picture: "+i,"This is a test item", date, "a1" );
 
-            arrayofItem.add(item);
+            arrayOfItem.add(item);
         }
     }
 }

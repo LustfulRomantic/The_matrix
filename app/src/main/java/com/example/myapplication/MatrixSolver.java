@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
+
 public interface MatrixSolver {
     boolean isSolvable();
-    void solve();
+    ArrayList<Cell> solve();
 }
 //not finished
 //Define classes for different maze-solving algorithms, such as BFSMatrixSolver.

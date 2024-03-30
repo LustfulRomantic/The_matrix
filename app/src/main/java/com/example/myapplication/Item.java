@@ -8,7 +8,7 @@ public class Item {
     private String who, name, desc, pic  = "tbd";
     private Date date;
 
-    private ArrayList<Vertex> graph = new ArrayList<>();
+    private ArrayList<MazeMatrix> graph = new ArrayList<>();
     private String config = "tbd";
     private String status = "a1"; //a1 = app1 , a2 = app2 ....
 
@@ -55,7 +55,7 @@ public class Item {
         return pic;
     }
     public String getStatus() {return status;}
-    public ArrayList<Vertex> getGraph() {return graph;}
+    public ArrayList<MazeMatrix> getGraph() {return graph;}
 
     @Override
     public String toString() {

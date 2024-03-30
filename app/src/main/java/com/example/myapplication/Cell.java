@@ -23,6 +23,8 @@ public class Cell {
     public void setVal(int value){this.value = value;}
     public int[] getIndex(){return new int[]{this.row, this.column};}
     public int getVal(){return this.value;}
+    public int getRow(){return this.row;}
+    public int getColumn(){return this.column;}
 
 }
 

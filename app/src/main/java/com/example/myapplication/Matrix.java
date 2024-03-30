@@ -34,13 +34,10 @@ public class Matrix {
             matrix.add(row);
         }
     }
+    public int getRows(){return this.rows;}
+    public int getCols(){return this.cols;}
     public boolean isCellClear (int x, int y) {
-        if (getCellValue(x,y) == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return getCellValue(x,y) == 0;
     }
     private Integer getCellValue (int x, int y) {
         return matrix.get(x).get(y).getVal();
@@ -52,6 +49,19 @@ public class Matrix {
         } else {
             return null;
         }
+    }
+
+    public ArrayList<Cell> getNeighbors(Cell cell){
+        ArrayList<Cell> neighbors = new ArrayList<>();
+        if (getCell(cell.getRow()-1, cell.getColumn()) != null)
+            neighbors.add(getCell(cell.getRow()-1, cell.getColumn()));
+        if (getCell(cell.getRow()+1, cell.getColumn()) != null)
+            neighbors.add(getCell(cell.getRow()+1, cell.getColumn()));
+        if (getCell(cell.getRow(), cell.getColumn()-1) != null)
+            neighbors.add(getCell(cell.getRow(), cell.getColumn()-1));
+        if (getCell(cell.getRow(), cell.getColumn()+1) != null)
+            neighbors.add(getCell(cell.getRow(), cell.getColumn()+1));
+        return neighbors;
     }
 
     public void setCellValue(int row, int column, int value) {
