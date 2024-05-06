@@ -15,7 +15,7 @@ public class MazeMatrix extends Matrix {
         this.end_point = super.getCell(4, 4);
         this.solutions = new HashMap<>();
     }
-    public MazeMatrix(ArrayList<ArrayList<Cell>> matrix, int rows, int cols, Cell start_point, Cell end_point){
+    public MazeMatrix(Cell[][] matrix, int rows, int cols, Cell start_point, Cell end_point){
         super(matrix, rows, cols);
         this.start_point = start_point;
         this.end_point = end_point;
