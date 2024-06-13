@@ -54,6 +54,6 @@ public class MyAdapter extends ArrayAdapter<Item> {
         tvDesc.setText(getItem(position).getDesc());
 
 
-        return convertView;
+        return viewHolder;
     }
 }
