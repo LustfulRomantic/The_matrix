@@ -45,7 +45,7 @@ public class Matrix {
 
     @Override
     public String toString(){
-        String mat = "";
+        String mat = "123\n123";
 
         return mat;
     }

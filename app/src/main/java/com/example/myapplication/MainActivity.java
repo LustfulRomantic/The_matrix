@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
 
         tv = findViewById(R.id.tv);
         btn = findViewById(R.id.btn);
-
+        Matrix mat = new Matrix();
+        Log.d("Maksim", mat.toString());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
