@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends ArrayAdapter<Item> {
+
+    iSomething listener;
     public MyAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Item> objects) {
         super(context, resource, objects);
     }
@@ -46,7 +48,7 @@ public class MyAdapter extends ArrayAdapter<Item> {
             }
         });
 
-        String date = getItem(position).getDate().toString().substring(0,19);
+        String date = getItem(position).getDate();
 
         tvName.setText(getItem(position).getName());
         tvDate.setText(date);
@@ -55,5 +57,12 @@ public class MyAdapter extends ArrayAdapter<Item> {
 
 
         return viewHolder;
+    }
+
+    public void setOnClickListenerSomething(iSomething context){
+        this.listener = context;
+    }
+    public interface iSomething{
+        public void theFunction(int pos);
     }
 }

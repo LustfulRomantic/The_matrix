@@ -11,7 +11,7 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="330dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:src="@drawable/maze_pic"
         tools:ignore="MissingConstraints" />
 
@@ -33,7 +33,6 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/tv"
             app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
@@ -42,7 +41,7 @@
         android:id="@+id/btn"
         android:layout_width="144dp"
         android:layout_height="55dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:text="@string/main_btn" />
 

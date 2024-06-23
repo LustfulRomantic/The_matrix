@@ -28,11 +28,13 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
 
         tv = findViewById(R.id.tv);
         btn = findViewById(R.id.btn);
+        
         Matrix mat = new Matrix();
         Log.d("Maksim", mat.toString());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddToDb.Additem();
                 Intent toHs = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(toHs);
             }

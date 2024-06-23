@@ -5,26 +5,24 @@ import java.util.Date;
 
 public class Item {
 
-    private String who, name, desc, pic  = "tbd";
-    private Date date;
-
-    private ArrayList<MazeMatrix> graph = new ArrayList<>();
-    private String config = "tbd";
-    private String status = "a1"; //a1 = app1 , a2 = app2 ....
+    private String who, name, desc, pic, date  = "tbd";
+    //private String config = "tbd";
+    private String status = "a3"; //a1 = app1 , a2 = app2 ....
 
     Item() {}
 
-    Item(String who, String name, String desc, Date date, String status) {
+    Item(String who, String name, String desc, String date, String status, String pic) {
         this.who = who;
         this.name = name;
         this.desc = desc;
         this.date = date;
+        this.pic = pic;
         this.status = status;
     }
 
     public void setStatus(String status){this.status = status;}
     public void setWho(String who) {this.who = who;}
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -40,7 +38,7 @@ public class Item {
         this.pic = pic;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
     public String getWho(){return who;}
@@ -55,7 +53,6 @@ public class Item {
         return pic;
     }
     public String getStatus() {return status;}
-    public ArrayList<MazeMatrix> getGraph() {return graph;}
 
     @Override
     public String toString() {
@@ -65,8 +62,7 @@ public class Item {
                 ", desc='" + desc + '\'' +
                 ", pic='" + pic + '\'' +
                 ", date=" + date +
-                ", graph=" + graph +
-                ", config='" + config + '\'' +
+                //", config='" + config + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

@@ -35,6 +35,10 @@ public class Matrix {
         return matrix[x][y].getVal();
     }
 
+    public Cell[][] getMatrix() {
+        return matrix;
+    }
+
     public Cell getCell(int row, int column) {
         if (row >= 0 && row < rows && column >= 0 && column < cols) {
             return matrix[row][column];

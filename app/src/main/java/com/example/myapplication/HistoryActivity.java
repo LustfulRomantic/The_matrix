@@ -10,12 +10,19 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements MyAdapter.iSomething {
 
+    private DatabaseReference ref;
     private ListView lv;
     ArrayList<Item> arrayOfItem = new ArrayList<>();
 
@@ -23,9 +30,26 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        ref = FirebaseDatabase.getInstance().getReference("Items");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               for(DataSnapshot snap: snapshot.getChildren()){
+                   Item it = snap.getValue(Item.class);
+                   arrayOfItem.add(it);
+               }
+               refresh_lv();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         lv = findViewById(R.id.lv);
 
-        add10TestItems();
+        //add10TestItems();
         refresh_lv();
     }
 
@@ -59,17 +83,22 @@ public class HistoryActivity extends AppCompatActivity {
 
         MyAdapter adp = new MyAdapter(this, android.R.layout.simple_list_item_1, arrayOfItem);
         lv.setAdapter(adp);
-
+        adp.setOnClickListenerSomething(this);
     }
 
     private void add10TestItems() {
 
         for(int i =0; i < 10; i++) {
 
-            Date date = Calendar.getInstance().getTime();
-            Item item = new Item("Itamar","Picture: "+i,"This is a test item", date, "a1" );
+            String date = Calendar.getInstance().getTime().toString();
+            Item item = new Item("Itamar","Picture: "+i,"This is a test item", date, "a1", "" );
 
             arrayOfItem.add(item);
         }
+    }
+
+    @Override
+    public void theFunction(int pos) {
+
     }
 }
