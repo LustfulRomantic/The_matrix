@@ -31,15 +31,19 @@ public class MainActivity extends AppCompatActivity /*implements View.OnClickLis
         
         Matrix mat = new Matrix();
         Log.d("Maksim", mat.toString());
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddToDb.Additem();
+                //Mat m = new Mat();
+                //m.setTestMaze();
+                //AddToDb.AddMat(m);
                 Intent toHs = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(toHs);
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.mymenu, menu);

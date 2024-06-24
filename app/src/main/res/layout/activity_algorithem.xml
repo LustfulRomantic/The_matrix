@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/image_original"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="51dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/image_vacant"
         app:layout_constraintEnd_toStartOf="@+id/image_vacant"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +22,12 @@
 
     <ImageView
         android:id="@+id/image_vacant"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="29dp"
         android:layout_marginBottom="18dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/image_solution"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_original"
@@ -35,11 +37,12 @@
 
     <ImageView
         android:id="@+id/image_engaged"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="31dp"
         android:layout_marginTop="244dp"
         android:layout_marginEnd="51dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toStartOf="@+id/image_solution"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,9 +50,10 @@
 
     <ImageView
         android:id="@+id/image_solution"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginEnd="29dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/image_engaged"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_engaged"

@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,9 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-public class HistoryActivity extends AppCompatActivity implements MyAdapter.iSomething {
+public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnClickListener {
 
     private DatabaseReference ref;
     private ListView lv;
@@ -83,7 +82,7 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.iSom
 
         MyAdapter adp = new MyAdapter(this, android.R.layout.simple_list_item_1, arrayOfItem);
         lv.setAdapter(adp);
-        adp.setOnClickListenerSomething(this);
+        adp.setOnClickListener(this);
     }
 
     private void add10TestItems() {
@@ -98,7 +97,10 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.iSom
     }
 
     @Override
-    public void theFunction(int pos) {
-
+    public void onClick(int pos) {
+        Toast.makeText(this, (pos+1)+"", Toast.LENGTH_LONG).show();
+        GlobalInfo.itemNum = pos+1;
+        Intent toAlgo = new Intent(HistoryActivity.this, AlgorithemActivity.class);
+        startActivity(toAlgo);
     }
 }

@@ -13,11 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyAdapter extends ArrayAdapter<Item> {
 
-    iSomething listener;
+    OnClickListener listener;
     public MyAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Item> objects) {
         super(context, resource, objects);
     }
@@ -44,6 +43,9 @@ public class MyAdapter extends ArrayAdapter<Item> {
         viewHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (listener != null){
+                    listener.onClick(position);
+                }
                 Log.d("Maksim","I clicked on row " + position);
             }
         });
@@ -59,10 +61,10 @@ public class MyAdapter extends ArrayAdapter<Item> {
         return viewHolder;
     }
 
-    public void setOnClickListenerSomething(iSomething context){
+    public void setOnClickListener(OnClickListener context){
         this.listener = context;
     }
-    public interface iSomething{
-        public void theFunction(int pos);
+    public interface OnClickListener {
+        public void onClick(int pos);
     }
 }
