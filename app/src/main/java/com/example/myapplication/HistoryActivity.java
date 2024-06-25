@@ -85,22 +85,12 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnCl
         adp.setOnClickListener(this);
     }
 
-    private void add10TestItems() {
-
-        for(int i =0; i < 10; i++) {
-
-            String date = Calendar.getInstance().getTime().toString();
-            Item item = new Item("Itamar","Picture: "+i,"This is a test item", date, "a1", "" );
-
-            arrayOfItem.add(item);
-        }
-    }
-
     @Override
     public void onClick(int pos) {
-        Toast.makeText(this, (pos+1)+"", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Item no."+(pos+1), Toast.LENGTH_LONG).show();
         GlobalInfo.itemNum = pos+1;
         Intent toAlgo = new Intent(HistoryActivity.this, AlgorithemActivity.class);
+        toAlgo.putExtra("picurl", arrayOfItem.get(pos).getPic());
         startActivity(toAlgo);
     }
 }

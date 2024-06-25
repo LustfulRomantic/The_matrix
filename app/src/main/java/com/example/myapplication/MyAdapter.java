@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends ArrayAdapter<Item> {
@@ -56,7 +58,7 @@ public class MyAdapter extends ArrayAdapter<Item> {
         tvDate.setText(date);
         tvStatus.setText(getItem(position).getStatus());
         tvDesc.setText(getItem(position).getDesc());
-
+        Picasso.get().load(getItem(position).getPic()).into(iv);
 
         return viewHolder;
     }

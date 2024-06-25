@@ -1,120 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AlgorithemActivity">
-
-    <ImageView
-        android:id="@+id/image_original"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginEnd="51dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/image_vacant"
-        app:layout_constraintEnd_toStartOf="@+id/image_vacant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_vacant"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <ImageView
-        android:id="@+id/image_vacant"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginBottom="18dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/image_solution"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_original"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <ImageView
-        android:id="@+id/image_engaged"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginEnd="51dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/image_solution"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <ImageView
-        android:id="@+id/image_solution"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="29dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/image_engaged"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_engaged"
-        app:layout_constraintTop_toTopOf="@+id/image_engaged"
-        app:srcCompat="@drawable/ic_launcher_background" />
-
-    <Button
-        android:id="@+id/appbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="Apply"
-        app:layout_constraintBaseline_toBaselineOf="@+id/confbtn"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/confbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="68dp"
-        android:text="Configuration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/appbtn" />
 
     <TextView
         android:id="@+id/tv_original"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="Original"
-        app:layout_constraintBottom_toTopOf="@+id/image_original"
-        app:layout_constraintStart_toStartOf="@+id/image_original" />
+        android:layout_marginTop="40dp"
+        android:text="@string/orig_pic"
+        android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/tv_vacant"
+    <ImageView
+        android:id="@+id/image_original"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_vacant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/vac_pic" />
+
+        <TextView
+            android:id="@+id/tv_engaged"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eng_pic"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/image_vacant"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="35dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageView
+            android:id="@+id/image_engaged"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="15dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_launcher_background" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/appbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="Vacant"
-        app:layout_constraintBottom_toTopOf="@+id/image_vacant"
-        app:layout_constraintStart_toStartOf="@+id/image_vacant" />
+        android:layout_marginTop="60dp"
+        android:text="@string/algo_btn"
+        android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/tv_engaged"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:text="Engaged"
-        app:layout_constraintBottom_toTopOf="@+id/image_engaged"
-        app:layout_constraintStart_toStartOf="@+id/image_engaged" />
-
-    <TextView
-        android:id="@+id/rv_solution"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:text="Solution"
-        app:layout_constraintBottom_toTopOf="@+id/image_solution"
-        app:layout_constraintStart_toStartOf="@+id/image_solution" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
