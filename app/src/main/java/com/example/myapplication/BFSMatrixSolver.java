@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,7 +41,7 @@ public class BFSMatrixSolver implements MatrixSolver {
             Cell currentCell = queue.poll();
 
             // If the current cell is the end cell, reconstruct and return the solution path
-            if (currentCell.getIndex() == endCell.getIndex()) {
+            if ((currentCell.getColumn() == endCell.getColumn()) && (currentCell.getRow() == endCell.getRow())) {
                 return reconstructPath(startCell, endCell);
             }
 
@@ -64,9 +66,15 @@ public class BFSMatrixSolver implements MatrixSolver {
         Cell currentCell = endCell;
 
         // Traverse from the end cell to the start cell using parent pointers
-        while (currentCell.getIndex() != startCell.getIndex()) {
+        while ((currentCell.getColumn() != startCell.getColumn()) || currentCell.getRow() != startCell.getRow()) {
             path.add(0, currentCell); // Add cells to the beginning of the path list
-            currentCell = parentMap.get(currentCell); // Move to the parent cell
+            //currentCell = parentMap.get(currentCell); // Move to the parent cell
+            for (Cell key : parentMap.keySet()) {
+                if (currentCell.equals(key)) {
+                    currentCell = parentMap.get(key);
+                    break;
+                }
+            }
         }
 
         path.add(0, startCell); // Add the start cell to complete the path

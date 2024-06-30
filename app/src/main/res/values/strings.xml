@@ -2,8 +2,9 @@
     <string name="app_name">Matrix Solver</string>
     <string name="main_name_tv">Name:</string>
     <string name="main_btn">Enter</string>
-    <string name="orig_pic">Original</string>
+    <string name="orig">Original</string>
     <string name="eng_pic">Engaged</string>
     <string name="vac_pic">Vacant</string>
     <string name="algo_btn">Solve</string>
+    <string name="sol">Solution</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/orig_pic"
+        android:text="@string/orig"
         android:layout_gravity="center" />
 
     <ImageView
@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/appbtn"
+        android:id="@+id/solve_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"

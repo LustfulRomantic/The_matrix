@@ -25,6 +25,8 @@ public class Matrix {
         for (int i = 0; i<rows; i++)
             for (int j = 0; j < cols; j++)
                 matrix[i][j] = new Cell(i, j);
+        this.rows = rows;
+        this.cols = cols;
     }
     public boolean isCellClear (int x, int y) {
         return getCellValue(x,y) == 0;
@@ -49,8 +51,16 @@ public class Matrix {
 
     @Override
     public String toString(){
-        String mat = "123\n123";
-
+        String mat = "";
+        for(int row = 0; row<this.rows; row++){
+            for(int col = 0; col<this.cols; col++){
+                mat += this.getCell(row,col).toString();
+                if(!(col+1==this.cols))
+                    mat += " ";
+            }
+            if(!(row+1==this.rows))
+                mat += "\n";
+        }
         return mat;
     }
 

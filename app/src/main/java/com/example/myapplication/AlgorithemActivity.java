@@ -22,9 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class AlgorithemActivity extends AppCompatActivity {
-    Button appBtn;
+    Button solve_btn;
     Mat m;
+    MazeMatrix mm;
+    BFSMatrixSolver mms;
+
     ImageView img_org, img_vac, img_eng;
 
     @Override
@@ -44,7 +49,13 @@ public class AlgorithemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 m = snapshot.getValue(Mat.class);
-                appBtn.setEnabled(true);
+                mm = m.getMaze();
+                Log.d("algo",mm.toString());
+                Log.d("algo","Start point: "+mm.getStartPoint().toString());
+                Log.d("algo","End point: "+mm.getEndPoint().toString());
+                mms = new BFSMatrixSolver(mm);
+
+                solve_btn.setEnabled(true);
             }
 
             @Override
@@ -53,38 +64,34 @@ public class AlgorithemActivity extends AppCompatActivity {
             }
         });
 
-        appBtn = (Button) findViewById(R.id.appbtn);
-        appBtn.setEnabled(false);
-        appBtn.setOnClickListener(new View.OnClickListener() {
+        solve_btn = findViewById(R.id.solve_btn);
+        solve_btn.setEnabled(false);
+        solve_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.d("Maksim","Apply button clicked");
-
                 Dialog d = new Dialog(AlgorithemActivity.this);
                 d.setContentView(R.layout.conf_dialog);
-                ImageView ivu = d.findViewById(R.id.imageView2);
-                ImageView ivs = d.findViewById(R.id.imageView3);
+                ImageView ivo = d.findViewById(R.id.conf_org_iv);
+                Picasso.get().load(getIntent().getStringExtra("picurl")).into(ivo);
+                ImageView ivs = d.findViewById(R.id.conf_sol_iv);
 
-                img_org.buildDrawingCache();
-                Bitmap bmap = img_org.getDrawingCache();
+                Bitmap bmp = buildMat(mm.getRows(), mm.getCols());
+                Log.d("bmp", ""+bmp.getWidth()+", "+bmp.getHeight());
 
-                int w = bmap.getWidth(), h = bmap.getHeight();
-
-                Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
-                Bitmap bmp = Bitmap.createBitmap(w, h, conf); // this creates a MUTABLE bitmap
-
-
-                for(int i =0; i < bmp.getHeight(); i ++) {
-                    bmp.setPixel(bmp.getWidth()/2 -3 , i, Color.RED);
-                    bmp.setPixel(bmp.getWidth()/2 -2 , i, Color.RED);
-                    bmp.setPixel(bmp.getWidth()/2 -1 , i, Color.RED);
-                    bmp.setPixel(bmp.getWidth()/2 -0 , i, Color.RED);
-
-
+                for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
+                    for(int col = 0; col<mm.getCols(); col++){
+                        if(!mm.isCellClear(row,col))
+                            colorSq2(bmp, col, row, Color.RED);
+                    }
                 }
-                ivs.setImageBitmap(bmp);
 
+                ArrayList<Cell> solution = mms.solve();
+                for (Cell cell: solution) {
+                    colorSq2(bmp, cell.getColumn(), cell.getRow(), Color.GREEN);
+                }
+                colorSq2(bmp, mm.getStartPoint().getColumn(), mm.getStartPoint().getRow() ,Color.YELLOW);//Coloring the start cell in yellow
+
+                ivs.setImageBitmap(bmp);
                 d.show();
             }
 
@@ -114,5 +121,49 @@ public class AlgorithemActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private Bitmap colorSq2(Bitmap bmp, int col_ind, int row_ind, int color) {
+        int w = bmp.getWidth();
+        int h = bmp.getHeight();
+        return colorSq(bmp, w/mm.getCols()*col_ind, w/mm.getCols()*(col_ind+1), h/mm.getRows()*row_ind, h/mm.getRows()*(row_ind+1), color);
+    }
+
+    private Bitmap colorSq(Bitmap bmp, int row_start, int row_end, int col_start, int col_end, int color) {
+        for(int i = row_start; i < row_end; i ++) {
+            for(int j = col_start; j < col_end; j++ ) {
+                bmp.setPixel(i,j,color);
+            }
+        }
+        return bmp;
+    }
+    private Bitmap buildMat(int rows, int cols){
+        img_org.buildDrawingCache();
+        Bitmap bmp0 = img_org.getDrawingCache();
+
+        int w = bmp0.getWidth(), h = bmp0.getHeight();
+
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
+        Bitmap bmp = Bitmap.createBitmap(w, h, conf); // this creates a MUTABLE bitmap
+
+        for(int j =bmp.getWidth()/cols; j < bmp.getWidth()-4; j = j +  bmp.getWidth()/cols  ) {
+
+            for (int i = 0; i < bmp.getHeight(); i++) {
+                bmp.setPixel(j, i, Color.BLACK);
+                bmp.setPixel(j+1, i, Color.BLACK);
+                bmp.setPixel(j+2, i, Color.BLACK);
+                bmp.setPixel(j+3, i, Color.BLACK);
+            }
+        }
+        for(int i = bmp.getHeight()/rows; i < bmp.getHeight()-6; i = i +  bmp.getHeight()/rows  ) {
+
+            for (int j = 0; j < bmp.getWidth(); j++) {
+                bmp.setPixel(j, i, Color.BLACK);
+                bmp.setPixel(j, i+1, Color.BLACK);
+                bmp.setPixel(j, i+2, Color.BLACK);
+                bmp.setPixel(j, i+3, Color.BLACK);
+            }
+        }
+        return bmp;
     }
 }

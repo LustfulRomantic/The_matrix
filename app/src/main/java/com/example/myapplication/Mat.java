@@ -2,68 +2,76 @@ package com.example.myapplication;
 
 import android.util.Log;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Mat implements Serializable {
-    private int start_cal;
-    private int start_raw;
-    private int end_cal;
-    private int end_raw;
+    private int start_col;
+    private int start_row;
+    private int end_col;
+    private int end_row;
+    private int rows_num;
+    private int cols_num;
     private ArrayList<Integer> arr;
 
     public Mat() {
     }
 
-    public Mat(int start_cal, int start_raw, int end_cal, int end_raw, ArrayList<Integer> arr) {
-        this.start_cal = start_cal;
-        this.start_raw = start_raw;
-        this.end_cal = end_cal;
-        this.end_raw = end_raw;
+    public Mat(int start_col, int start_row, int end_col, int end_row, int rows_num, int cols_num, ArrayList<Integer> arr) {
+        this.start_col = start_col;
+        this.start_row = start_row;
+        this.end_col = end_col;
+        this.end_row = end_row;
+        this.rows_num = rows_num;
+        this.cols_num = cols_num;
         this.arr = arr;
     }
 
-    public int getStart_cal() {
-        return start_cal;
+    public int getStart_col() {
+        return start_col;
     }
 
-    public int getStart_raw() {
-        return start_raw;
+    public int getStart_row() {
+        return start_row;
     }
 
-    public int getEnd_cal() {
-        return end_cal;
+    public int getEnd_col() {
+        return end_col;
     }
 
-    public int getEnd_raw() {
-        return end_raw;
+    public int getEnd_row() {
+        return end_row;
     }
 
     public ArrayList<Integer> getArr() {
         return arr;
     }
 
-    public void setStart_cal(int start_cal) {
-        this.start_cal = start_cal;
+    public void setStart_col(int start_col) {
+        this.start_col = start_col;
     }
 
-    public void setStart_raw(int start_raw) {
-        this.start_raw = start_raw;
+    public void setStart_row(int start_row) {
+        this.start_row = start_row;
     }
 
-    public void setEnd_cal(int end_cal) {
-        this.end_cal = end_cal;
+    public void setEnd_col(int end_col) {
+        this.end_col = end_col;
     }
 
-    public void setEnd_raw(int end_raw) {
-        this.end_raw = end_raw;
+    public void setEnd_row(int end_row) {
+        this.end_row = end_row;
     }
+
+    public int getRows_num() {return rows_num;}
+
+    public void setRows_num(int rows_num) {this.rows_num = rows_num;}
+
+    public int getCols_num() {return cols_num;}
+
+    public void setCols_num(int cols_num) {this.cols_num = cols_num;}
 
     public void setArr(ArrayList<Integer> arr) {
         this.arr = arr;
@@ -71,19 +79,21 @@ public class Mat implements Serializable {
 
     @Exclude
     public MazeMatrix getMaze(){
-        Matrix m = new Matrix(6,5);
+        Matrix m = new Matrix(this.rows_num,this.cols_num);
         for(int i = 0; i< m.getRows(); i++)
             for(int j = 0; j< m.getCols(); j++){
                 m.setCellValue(i,j,arr.get(i*m.getCols()+j));
             }
-        MazeMatrix mm = new MazeMatrix(m.getMatrix(), m.getRows(), m.getCols(), new Cell(start_raw, start_cal), new Cell(end_raw, end_cal));
+        MazeMatrix mm = new MazeMatrix(m.getMatrix(), m.getRows(), m.getCols(), new Cell(start_row, start_col), new Cell(end_row, end_col));
         return mm;
     }
     public void setTestMaze(){
-        this.start_cal =  0;
-        this.start_raw = 4;
-        this.end_cal = 4;
-        this.end_raw = 1;
+        this.start_col =  0;
+        this.start_row = 4;
+        this.end_col = 4;
+        this.end_row = 1;
+        this.rows_num = 6;
+        this.cols_num = 5;
         this.arr = new ArrayList<Integer>();
         for (int i = 0; i<30; i++){
             this.arr.add(0);
@@ -96,16 +106,5 @@ public class Mat implements Serializable {
         this.arr.set(21, 1);
         this.arr.set(23, 1);
         Log.d("Mat", this.arr.toString());
-    }
-
-    @Override
-    public String toString() {
-        return "Mat{" +
-                "start_cal=" + start_cal +
-                ", start_raw=" + start_raw +
-                ", end_cal=" + end_cal +
-                ", end_raw=" + end_raw +
-                //", arr=" + Arrays.toString(arr) +
-                '}';
     }
 }

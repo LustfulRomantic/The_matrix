@@ -37,6 +37,4 @@ public class MazeMatrix extends Matrix {
     public void addSolution(String algorithmName, ArrayList<Cell> solution) {
         solutions.put(algorithmName, solution);
     }
-
-
 }

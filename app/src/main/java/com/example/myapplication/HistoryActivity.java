@@ -47,8 +47,6 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnCl
             }
         });
         lv = findViewById(R.id.lv);
-
-        //add10TestItems();
         refresh_lv();
     }
 
