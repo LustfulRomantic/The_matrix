@@ -41,7 +41,8 @@ public class BFSMatrixSolver implements MatrixSolver {
             Cell currentCell = queue.poll();
 
             // If the current cell is the end cell, reconstruct and return the solution path
-            if ((currentCell.getColumn() == endCell.getColumn()) && (currentCell.getRow() == endCell.getRow())) {
+            //if ((currentCell.getColumn() == endCell.getColumn()) && (currentCell.getRow() == endCell.getRow())) {
+            if (currentCell.equals(endCell)){
                 return reconstructPath(startCell, endCell);
             }
 
@@ -66,7 +67,8 @@ public class BFSMatrixSolver implements MatrixSolver {
         Cell currentCell = endCell;
 
         // Traverse from the end cell to the start cell using parent pointers
-        while ((currentCell.getColumn() != startCell.getColumn()) || currentCell.getRow() != startCell.getRow()) {
+        //while ((currentCell.getColumn() != startCell.getColumn()) || currentCell.getRow() != startCell.getRow()) {
+        while (!currentCell.equals(startCell)) {
             path.add(0, currentCell); // Add cells to the beginning of the path list
             //currentCell = parentMap.get(currentCell); // Move to the parent cell
             for (Cell key : parentMap.keySet()) {

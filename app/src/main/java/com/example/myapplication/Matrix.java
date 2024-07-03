@@ -4,8 +4,7 @@ import java.util.*;
 
 public class Matrix {
     private Cell[][] matrix;
-    private int rows;
-    private int cols;
+    private int rows, cols;
 
     public Matrix(){
         this.rows = 5;

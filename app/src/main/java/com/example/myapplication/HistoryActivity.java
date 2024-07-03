@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,17 +57,25 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnCl
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.item_main) {
-            finish();
-        }
 
         if (item.getItemId() == R.id.item_hs) {
-
+            Toast.makeText(HistoryActivity.this, "You are in the already in!", Toast.LENGTH_SHORT).show();
         }
 
         if (item.getItemId() == R.id.item_algo) {
             Intent toAlgo = new Intent(HistoryActivity.this, AlgorithemActivity.class);
             startActivity(toAlgo);
+            finish();
+        }
+
+        if (item.getItemId() == R.id.item_name) {
+            SharedPreferences sp;
+            sp = getSharedPreferences("User", MODE_PRIVATE);
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("User", "");
+            edit.apply();
+            Intent toMain = new Intent(HistoryActivity.this, MainActivity.class);
+            startActivity(toMain);
             finish();
         }
 

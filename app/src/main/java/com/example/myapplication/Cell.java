@@ -4,10 +4,9 @@ import androidx.annotation.NonNull;
 import java.util.*;
 
 public class Cell {
-    private int row;
-    private int column;
-    private int value;
+    private int row, column, value;
 
+    public Cell(){};
     public Cell(int row, int column){
         this.row = row;
         this.column = column;

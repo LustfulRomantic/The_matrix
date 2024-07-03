@@ -8,12 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Mat implements Serializable {
-    private int start_col;
-    private int start_row;
-    private int end_col;
-    private int end_row;
-    private int rows_num;
-    private int cols_num;
+    private int start_col, start_row, end_col, end_row, rows_num, cols_num;
     private ArrayList<Integer> arr;
 
     public Mat() {

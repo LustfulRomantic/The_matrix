@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -49,10 +50,21 @@ public class AlgorithemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 m = snapshot.getValue(Mat.class);
+
                 mm = m.getMaze();
-                Log.d("algo",mm.toString());
-                Log.d("algo","Start point: "+mm.getStartPoint().toString());
-                Log.d("algo","End point: "+mm.getEndPoint().toString());
+                Bitmap vac = buildMat(img_vac ,mm.getRows(), mm.getCols());
+                Bitmap eng = buildMat(img_eng ,mm.getRows(), mm.getCols());
+                for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
+                    for(int col = 0; col<mm.getCols(); col++){
+                        if(!mm.isCellClear(row,col))
+                            colorSq2(eng, col, row, Color.RED);
+                        else
+                            colorSq2(vac, col, row, Color.GREEN);
+                    }
+                }
+                img_eng.setImageBitmap(eng);
+                img_vac.setImageBitmap(vac);
+
                 mms = new BFSMatrixSolver(mm);
 
                 solve_btn.setEnabled(true);
@@ -75,7 +87,7 @@ public class AlgorithemActivity extends AppCompatActivity {
                 Picasso.get().load(getIntent().getStringExtra("picurl")).into(ivo);
                 ImageView ivs = d.findViewById(R.id.conf_sol_iv);
 
-                Bitmap bmp = buildMat(mm.getRows(), mm.getCols());
+                Bitmap bmp = buildMat(img_org ,mm.getRows(), mm.getCols());
                 Log.d("bmp", ""+bmp.getWidth()+", "+bmp.getHeight());
 
                 for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
@@ -105,9 +117,6 @@ public class AlgorithemActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.item_main) {
-            finish();
-        }
 
         if (item.getItemId() == R.id.item_hs) {
             Intent toHs = new Intent(AlgorithemActivity.this, HistoryActivity.class);
@@ -119,7 +128,19 @@ public class AlgorithemActivity extends AppCompatActivity {
 
         }
 
-        return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.item_name) {
+            SharedPreferences sp;
+            sp = getSharedPreferences("User", MODE_PRIVATE);
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("User", "");
+            edit.apply();
+            Intent toMain = new Intent(AlgorithemActivity.this, MainActivity.class);
+            startActivity(toMain);
+            finish();
+        }
+
+
+            return super.onOptionsItemSelected(item);
 
     }
 
@@ -137,9 +158,9 @@ public class AlgorithemActivity extends AppCompatActivity {
         }
         return bmp;
     }
-    private Bitmap buildMat(int rows, int cols){
-        img_org.buildDrawingCache();
-        Bitmap bmp0 = img_org.getDrawingCache();
+    private Bitmap buildMat(ImageView img, int rows, int cols){
+        img.buildDrawingCache();
+        Bitmap bmp0 = img.getDrawingCache();
 
         int w = bmp0.getWidth(), h = bmp0.getHeight();
 

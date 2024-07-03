@@ -5,10 +5,7 @@ import java.util.Date;
 
 public class Item {
 
-    private String who, name, desc, pic, date  = "tbd";
-    //private String config = "tbd";
-    private String status = "a3"; //a1 = app1 , a2 = app2 ....
-
+    private String who, name, desc, status, pic, date;
     Item() {}
 
     Item(String who, String name, String desc, String date, String status, String pic) {
@@ -61,8 +58,7 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
                 ", pic='" + pic + '\'' +
-                ", date=" + date +
-                //", config='" + config + '\'' +
+                ", date=" + date +'\''+
                 ", status='" + status + '\'' +
                 '}';
     }
