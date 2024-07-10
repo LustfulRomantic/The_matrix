@@ -13,9 +13,9 @@ public class AddToDb {
         Item it1 = new Item("maks", "pic1", "desc", "23.06.2024", "stat", "pic");
         ref.child("1").setValue(it1);
     }
-    public static void addMat(Mat mat){
+    public static void addMat(Mat mat, Integer num){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Mats");
-        ref.child("1").setValue(mat);
+        ref.child(num+"").setValue(mat);
     }
 
 //    public static void addSolution(ArrayList<Cell> arr){

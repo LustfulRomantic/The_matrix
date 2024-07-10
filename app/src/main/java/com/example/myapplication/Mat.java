@@ -82,24 +82,120 @@ public class Mat implements Serializable {
         MazeMatrix mm = new MazeMatrix(m.getMatrix(), m.getRows(), m.getCols(), new Cell(start_row, start_col), new Cell(end_row, end_col));
         return mm;
     }
-    public void setTestMaze(){
-        this.start_col =  0;
-        this.start_row = 4;
-        this.end_col = 4;
-        this.end_row = 1;
-        this.rows_num = 6;
-        this.cols_num = 5;
-        this.arr = new ArrayList<Integer>();
-        for (int i = 0; i<30; i++){
-            this.arr.add(0);
-        }
-        this.arr.set(3, 1);
-        this.arr.set(5, 1);
-        this.arr.set(12, 1);
-        this.arr.set(16, 1);
-        this.arr.set(19, 1);
-        this.arr.set(21, 1);
-        this.arr.set(23, 1);
-        Log.d("Mat", this.arr.toString());
-    }
+//    public void setTestMaze1(){
+//        this.start_col =  0;
+//        this.start_row = 4;
+//        this.end_col = 4;
+//        this.end_row = 1;
+//        this.rows_num = 6;
+//        this.cols_num = 5;
+//        this.arr = new ArrayList<Integer>();
+//        for (int i = 0; i<30; i++){
+//            this.arr.add(0);
+//        }
+//        this.arr.set(3, 1);
+//        this.arr.set(5, 1);
+//        this.arr.set(12, 1);
+//        this.arr.set(16, 1);
+//        this.arr.set(19, 1);
+//        this.arr.set(21, 1);
+//        this.arr.set(23, 1);
+//    }
+//    public void setTestMaze2(){
+//        this.start_col =  5;
+//        this.start_row = 4;
+//        this.end_col = 0;
+//        this.end_row = 1;
+//        this.rows_num = 5;
+//        this.cols_num = 6;
+//        this.arr = new ArrayList<Integer>();
+//        for (int i = 0; i<30; i++){
+//            this.arr.add(0);
+//        }
+//        this.arr.set(0, 1);
+//        this.arr.set(1, 1);
+//        this.arr.set(2, 1);
+//        this.arr.set(3, 1);
+//        this.arr.set(4, 1);
+//        this.arr.set(10, 1);
+//        this.arr.set(12, 1);
+//        this.arr.set(14, 1);
+//        this.arr.set(18, 1);
+//        this.arr.set(20, 1);
+//        this.arr.set(24, 1);
+//        this.arr.set(25, 1);
+//        this.arr.set(26, 1);
+//        this.arr.set(28, 1);
+//    }
+//    public void setTestMaze3(){
+//        this.start_col =  4;
+//        this.start_row = 0;
+//        this.end_col = 0;
+//        this.end_row = 5;
+//        this.rows_num = 6;
+//        this.cols_num = 5;
+//        this.arr = new ArrayList<Integer>();
+//        for (int i = 0; i<30; i++){
+//            this.arr.add(0);
+//        }
+//        this.arr.set(6, 1);
+//        this.arr.set(8, 1);
+//        this.arr.set(10, 1);
+//        this.arr.set(13, 1);
+//        this.arr.set(17, 1);
+//        this.arr.set(24, 1);
+//        this.arr.set(26, 1);
+//    }
+//    public void setTestMaze4(){
+//        this.start_col =  5;
+//        this.start_row = 4;
+//        this.end_col = 0;
+//        this.end_row = 3;
+//        this.rows_num = 5;
+//        this.cols_num = 6;
+//        this.arr = new ArrayList<Integer>();
+//        for (int i = 0; i<30; i++){
+//            this.arr.add(0);
+//        }
+//        this.arr.set(2, 1);
+//        this.arr.set(3, 1);
+//        this.arr.set(4, 1);
+//        this.arr.set(6, 1);
+//        this.arr.set(7, 1);
+//        this.arr.set(8, 1);
+//        this.arr.set(10, 1);
+//        this.arr.set(12, 1);
+//        this.arr.set(17, 1);
+//        this.arr.set(20, 1);
+//        this.arr.set(24, 1);
+//        this.arr.set(25, 1);
+//        this.arr.set(26, 1);
+//        this.arr.set(28, 1);
+//    }
+//    public void setTestMaze5(){
+//        this.start_col =  5;
+//        this.start_row = 0;
+//        this.end_col = 0;
+//        this.end_row = 3;
+//        this.rows_num = 5;
+//        this.cols_num = 6;
+//        this.arr = new ArrayList<Integer>();
+//        for (int i = 0; i<30; i++){
+//            this.arr.add(0);
+//        }
+//        this.arr.set(2, 1);
+//        this.arr.set(3, 1);
+//        this.arr.set(4, 1);
+//        this.arr.set(6, 1);
+//        this.arr.set(7, 1);
+//        this.arr.set(8, 1);
+//        this.arr.set(10, 1);
+//        this.arr.set(12, 1);
+//        this.arr.set(17, 1);
+//        this.arr.set(20, 1);
+//        this.arr.set(24, 1);
+//        this.arr.set(25, 1);
+//        this.arr.set(26, 1);
+//        this.arr.set(28, 1);
+//    }
 }

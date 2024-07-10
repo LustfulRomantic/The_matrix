@@ -14,13 +14,7 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
         <activity
-            android:name=".ConfigurationActivity"
-            android:exported="false" />
-        <activity
             android:name=".AlgorithemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CameraActivity"
             android:exported="false" />
         <activity
             android:name=".HistoryActivity"

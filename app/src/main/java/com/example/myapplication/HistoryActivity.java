@@ -78,15 +78,10 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnCl
             startActivity(toMain);
             finish();
         }
-
         return super.onOptionsItemSelected(item);
-
     }
-
     private void refresh_lv() {
-
         //lv <= arrayOfStrings
-
         MyAdapter adp = new MyAdapter(this, android.R.layout.simple_list_item_1, arrayOfItem);
         lv.setAdapter(adp);
         adp.setOnClickListener(this);
@@ -94,6 +89,7 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnCl
 
     @Override
     public void onClick(int pos) {
+
         Toast.makeText(this, "Item no."+(pos+1), Toast.LENGTH_LONG).show();
         GlobalInfo.itemNum = pos+1;
         Intent toAlgo = new Intent(HistoryActivity.this, AlgorithemActivity.class);

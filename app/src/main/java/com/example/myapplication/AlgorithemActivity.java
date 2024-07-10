@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,7 @@ public class AlgorithemActivity extends AppCompatActivity {
     Mat m;
     MazeMatrix mm;
     BFSMatrixSolver mms;
+    ArrayList<Cell> solution;
 
     ImageView img_org, img_vac, img_eng;
 
@@ -50,24 +52,32 @@ public class AlgorithemActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 m = snapshot.getValue(Mat.class);
-
-                mm = m.getMaze();
-                Bitmap vac = buildMat(img_vac ,mm.getRows(), mm.getCols());
-                Bitmap eng = buildMat(img_eng ,mm.getRows(), mm.getCols());
-                for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
-                    for(int col = 0; col<mm.getCols(); col++){
-                        if(!mm.isCellClear(row,col))
-                            colorSq2(eng, col, row, Color.RED);
-                        else
-                            colorSq2(vac, col, row, Color.GREEN);
+                if (m != null) {
+                    mm = m.getMaze();
+                    Bitmap vac = buildMat(img_vac ,mm.getRows(), mm.getCols());
+                    Bitmap eng = buildMat(img_eng ,mm.getRows(), mm.getCols());
+                    for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
+                        for(int col = 0; col<mm.getCols(); col++){
+                            if(!mm.isCellClear(row,col))
+                                colorSq2(eng, col, row, Color.RED);
+                            else
+                                colorSq2(vac, col, row, Color.GREEN);
+                        }
                     }
+                    img_eng.setImageBitmap(eng);
+                    img_vac.setImageBitmap(vac);
+
+                    mms = new BFSMatrixSolver(mm);
+                    solution = mms.solve();
+
+                    solve_btn.setEnabled(true);
                 }
-                img_eng.setImageBitmap(eng);
-                img_vac.setImageBitmap(vac);
-
-                mms = new BFSMatrixSolver(mm);
-
-                solve_btn.setEnabled(true);
+                else{
+                    Intent toHs = new Intent(AlgorithemActivity.this, HistoryActivity.class);
+                    startActivity(toHs);
+                    Toast.makeText(AlgorithemActivity.this, "Mat for this Item has not been found!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
 
             @Override
@@ -81,30 +91,43 @@ public class AlgorithemActivity extends AppCompatActivity {
         solve_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog d = new Dialog(AlgorithemActivity.this);
-                d.setContentView(R.layout.conf_dialog);
-                ImageView ivo = d.findViewById(R.id.conf_org_iv);
-                Picasso.get().load(getIntent().getStringExtra("picurl")).into(ivo);
-                ImageView ivs = d.findViewById(R.id.conf_sol_iv);
+                if (solution != null){
+                    Dialog d = new Dialog(AlgorithemActivity.this);
+                    d.setContentView(R.layout.conf_dialog);
+                    ImageView ivo = d.findViewById(R.id.conf_org_iv);
+                    Picasso.get().load(getIntent().getStringExtra("picurl")).into(ivo);
+                    ImageView ivs = d.findViewById(R.id.conf_sol_iv);
+                    Button dis_btn = d.findViewById(R.id.disbtn);
 
-                Bitmap bmp = buildMat(img_org ,mm.getRows(), mm.getCols());
-                Log.d("bmp", ""+bmp.getWidth()+", "+bmp.getHeight());
+                    Bitmap bmp = buildMat(img_org ,mm.getRows(), mm.getCols());
+                    Log.d("bmp", ""+bmp.getWidth()+", "+bmp.getHeight());
 
-                for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
-                    for(int col = 0; col<mm.getCols(); col++){
-                        if(!mm.isCellClear(row,col))
-                            colorSq2(bmp, col, row, Color.RED);
+                    for(int row = 0; row<mm.getRows(); row++){ //coloring all the engaged cells in red
+                        for(int col = 0; col<mm.getCols(); col++){
+                            if(!mm.isCellClear(row,col))
+                                colorSq2(bmp, col, row, Color.RED);
+                        }
                     }
-                }
 
-                ArrayList<Cell> solution = mms.solve();
-                for (Cell cell: solution) {
-                    colorSq2(bmp, cell.getColumn(), cell.getRow(), Color.GREEN);
-                }
-                colorSq2(bmp, mm.getStartPoint().getColumn(), mm.getStartPoint().getRow() ,Color.YELLOW);//Coloring the start cell in yellow
+//                ArrayList<Cell> solution = mms.solve();
+                    for (Cell cell: solution) {
+                        colorSq2(bmp, cell.getColumn(), cell.getRow(), Color.GREEN);
+                    }
+                    colorSq2(bmp, mm.getStartPoint().getColumn(), mm.getStartPoint().getRow() ,Color.YELLOW);//Coloring the start cell in yellow
 
-                ivs.setImageBitmap(bmp);
-                d.show();
+                    ivs.setImageBitmap(bmp);
+                    d.show();
+                    dis_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            finish();
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(AlgorithemActivity.this, "There is no solution for this maze!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
 
         });
