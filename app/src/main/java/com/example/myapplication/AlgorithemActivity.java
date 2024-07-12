@@ -27,10 +27,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class AlgorithemActivity extends AppCompatActivity {
-    Button solve_btn;
+    Button solve, back, send;
     Mat m;
     MazeMatrix mm;
     BFSMatrixSolver mms;
+    Boolean isSolution = false;
     ArrayList<Cell> solution;
 
     ImageView img_org, img_vac, img_eng;
@@ -43,6 +44,10 @@ public class AlgorithemActivity extends AppCompatActivity {
         img_org = findViewById(R.id.image_original);
         img_eng = findViewById(R.id.image_engaged);
         img_vac = findViewById(R.id.image_vacant);
+
+        back = findViewById(R.id.back_btn);
+        send = findViewById(R.id.send_btn);
+        solve = findViewById(R.id.solve_btn);
 
         Picasso.get().load(getIntent().getStringExtra("picurl")).into(img_org);
 
@@ -69,12 +74,10 @@ public class AlgorithemActivity extends AppCompatActivity {
 
                     mms = new BFSMatrixSolver(mm);
                     solution = mms.solve();
-
-                    solve_btn.setEnabled(true);
+                    if (solution != null)
+                        isSolution = true;
                 }
                 else{
-                    Intent toHs = new Intent(AlgorithemActivity.this, HistoryActivity.class);
-                    startActivity(toHs);
                     Toast.makeText(AlgorithemActivity.this, "Mat for this Item has not been found!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -85,13 +88,10 @@ public class AlgorithemActivity extends AppCompatActivity {
 
             }
         });
-
-        solve_btn = findViewById(R.id.solve_btn);
-        solve_btn.setEnabled(false);
-        solve_btn.setOnClickListener(new View.OnClickListener() {
+        solve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (solution != null){
+                if (isSolution){
                     Dialog d = new Dialog(AlgorithemActivity.this);
                     d.setContentView(R.layout.conf_dialog);
                     ImageView ivo = d.findViewById(R.id.conf_org_iv);
@@ -120,16 +120,49 @@ public class AlgorithemActivity extends AppCompatActivity {
                     dis_btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            finish();
+                            d.dismiss();
                         }
                     });
                 }
                 else{
                     Toast.makeText(AlgorithemActivity.this, "There is no solution for this maze!", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
 
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isSolution){
+                    send.setEnabled(false);
+                    int cols = m.getCols_num();
+                    int rows = m.getRows_num();
+                    Mat sol = new Mat(m.getStart_col(), m.getStart_row(), m.getEnd_col(), m.getEnd_row(), m.getRows_num(), m.getCols_num(), new ArrayList<>());
+                    ArrayList<Integer> arr = new ArrayList<>();
+                    for (int i = 0; i<m.getArr().size(); i++)
+                        arr.add(0);
+                    for (int i = 0; i<solution.size(); i++){
+                        Cell cell = solution.get(i);
+                        int col = cell.getColumn();
+                        int row = cell.getRow();
+                        int index = row*cols+col;
+                        arr.set(index, 1);
+                    }
+                    sol.setArr(arr);
+                    uploadSolution(GlobalInfo.itemNum, sol);
+                    Toast.makeText(AlgorithemActivity.this, "The solution has been uploaded successfully!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(AlgorithemActivity.this, "There is nothing to upload!", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
@@ -209,5 +242,9 @@ public class AlgorithemActivity extends AppCompatActivity {
             }
         }
         return bmp;
+    }
+    private void uploadSolution(int pos, Mat mat){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Solutions");
+        ref.child(pos+"").setValue(mat);
     }
 }

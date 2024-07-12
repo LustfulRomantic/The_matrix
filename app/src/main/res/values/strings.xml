@@ -7,4 +7,6 @@
     <string name="vac_pic">Vacant</string>
     <string name="algo_btn">Solve</string>
     <string name="sol">Solution</string>
+    <string name="send_btn">Send</string>
+    <string name="back_btn">Back</string>
 </resources>
